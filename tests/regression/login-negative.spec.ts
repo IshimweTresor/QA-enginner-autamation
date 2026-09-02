@@ -38,3 +38,14 @@ test('user cannot login with invalid username and password', async ({ page }) =>
 
   await expect(page.getByText('Epic sadface')).toBeVisible();
 });
+
+test('user cannot login with empty username', async ({ page }) => {
+
+  await page.goto('https://www.saucedemo.com/');
+
+  await page.getByPlaceholder('Password').fill('secret_sauce');
+
+  await page.getByRole('button', { name: 'Login' }).click();
+
+  await expect(page.getByText('Username is required')).toBeVisible();
+});
